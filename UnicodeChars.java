@@ -9,34 +9,49 @@ public class UnicodeChars
 	public static void main(String[] args) 
 	{
 		//Variable Declaration & Initialization
-		String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String lowercaseLetters = uppercaseLetters.toLowerCase();
-		String numbers = "0123456789";
-		for(int i = 0; i < uppercaseLetters.length(); i++) 
+		char i;
+		System.out.print("Uppercase letters | ");
+		for(i = 'A'; i <= 'Z'; i++) 
 		{
-			System.out.println(uppercaseLetters.charAt(i));
+			System.out.print(i);
 		}
-		for(int i = 0; i < lowercaseLetters.length(); i++) 
+		System.out.println(" ");
+		System.out.print("Lowercase letters | ");
+		for(i = 'a'; i <= 'z'; i++) 
 		{
-			System.out.println(lowercaseLetters.charAt(i));
+			System.out.print(i);
 		}
-		for(int i = 0; i < numbers.length(); i++) 
+		System.out.println(" ");
+		System.out.print("Numbers | ");
+		for(i = '0'; i <= '9'; i++) 
 		{
-			System.out.println(numbers.charAt(i));
-		}
-		
-		char z;
-		for(z = 'A'; z <= 'Z'; z++) 
-		{
-			System.out.println(z);
-		}
-		for(z = 'a'; z <= 'z'; z++) 
-		{
-			System.out.println(z);
-		}
-		for(z = '0'; z <= '9'; z++) 
-		{
-			System.out.println(z);
+			System.out.print(i);
 		}
 	}//end main
 }//end class
+
+/*
+ * ALTERNATE METHOD USING STRINGS
+ * String uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String lowercaseLetters = uppercaseLetters.toLowerCase();
+		String numbers = "0123456789";
+		System.out.print("Uppercase letters | ");
+		for(int i = 0; i < uppercaseLetters.length(); i++) 
+		{
+			System.out.print(uppercaseLetters.charAt(i));
+		}
+		System.out.println(" ");
+		System.out.print("Lowercase letters | ");
+		for(int i = 0; i < lowercaseLetters.length(); i++) 
+		{
+			System.out.print(lowercaseLetters.charAt(i));
+		}
+		System.out.println(" ");
+		System.out.print("Numbers | ");
+		for(int i = 0; i < numbers.length(); i++) 
+		{
+			System.out.print(numbers.charAt(i));
+		}
+		System.out.println(" ");
+		System.out.println(" ");
+ */
