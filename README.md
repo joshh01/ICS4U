@@ -1,4 +1,4 @@
 Josh's ICS 4U projects and programs. 
 - All programs in this folder are created by Josh, and cannot be used publicly without permission.
 - If you steal my github + class folder idea, you must put "josh on top" in your "Read Me" file.
-- Personal use or submissions of these programs will get us both 0s so dont copy.
+- If you use any program you have to star the repository.
