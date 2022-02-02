@@ -1,7 +1,7 @@
 /*
  * Joshua de Souza
  * February 1, 2022
- * U1 A2 A3: Palindrome
+ * U1 A2 Q3: Palindrome
  * Program checks if a word is a palindrome. 
  */
 import javax.swing.JOptionPane;
