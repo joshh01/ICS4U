@@ -1,0 +1,29 @@
+/* 
+* Joshua de Souza
+* February 3, 2022
+* Code HS 3.2.8: Cooking
+* Program generates a random number and assesses its cooking time.
+*/
+public class MicrowaveCooking
+{
+    public static void main(String[] args)
+    {
+       //Variable Declaration & Initialization
+       int intNumber;
+       double number;
+       number = Math.floor(Math.random() * 60 + 1);
+       intNumber = (int) number;
+       // Print the number of seconds
+       System.out.println("Microwaving for " + intNumber + " seconds");
+       // Use if statements to print
+       // whether the roll is fine or will catch fire
+       if (intNumber  <= 20) 
+       {
+           System.out.println("Perfect cooking time!");
+       }
+       else 
+       {
+           System.out.println("Your roll will catch fire!");
+       }
+    }
+}
