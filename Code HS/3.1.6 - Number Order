@@ -1,0 +1,33 @@
+/*
+* Joshua de Souza
+* February 3, 2022
+* Code HS 3.1.6: Number Order
+* Program determines whether 2 given numbers are equal, less than or greater than each other.
+*/
+import java.util.Scanner;
+public class RelativeNumbers
+{
+    public static void main(String[] args)
+    {
+        //Variable Declaration & Initialization
+        int numberOne;
+        int numberTwo;     
+        boolean less;
+        boolean equal;
+        boolean greater;
+        Scanner input;
+        // Ask for two numbers
+        input = new Scanner(System.in);
+        System.out.println("Enter two numbers:");
+        numberOne = input.nextInt();  
+        numberTwo = input.nextInt();
+        // Compare the numbers as instructed
+        less = numberOne < numberTwo;
+        equal = numberOne == numberTwo;
+        greater = numberOne > numberTwo;
+        // Display the results
+        System.out.println(numberOne + " < " + numberTwo + ": " + less);
+        System.out.println(numberOne + " == " + numberTwo + ": " + equal);
+        System.out.println(numberOne + " > " + numberTwo + ": " + greater);
+    }
+}
