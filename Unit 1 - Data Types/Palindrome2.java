@@ -1,4 +1,3 @@
-/*
  * Joshua de Souza
  * February 2, 2022
  * U1 A2 Q4: Palindrome2
@@ -46,7 +45,7 @@ public class Palindrome2
 		System.out.println("Number of palindromes: " + counter);
 		System.out.println("Valid palindromes: " + palindromes);
 		//Popup results changing grammar based on count of palindromes
-		if(counter > 1 || counter == 0) 
+		if(counter > 1) 
 		{
 			JOptionPane.showMessageDialog(null, 
 	                "There are " + counter + " palindromes in your sentence.", 
@@ -75,5 +74,5 @@ public class Palindrome2
 	                "Words", 
 	                JOptionPane.PLAIN_MESSAGE);
 		}
-	}
-}
+	}//end main
+}//end class
