@@ -10,12 +10,8 @@ public class TripleDouble
     public static void main(String[] args)
     {
         //Variable Declaration & Initialization
-        int points;
-        int rebounds;
-        int assists;
-        boolean tenPoints;
-        boolean tenRebounds;
-        boolean tenAssists;
+        int points, rebounds, assists;
+        boolean tenPoints, tenRebounds, tenAssists;
         Scanner input;
         // Ask for the three stats
         input = new Scanner(System.in);
