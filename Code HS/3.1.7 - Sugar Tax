@@ -1,0 +1,22 @@
+/*
+* Joshua de Souza
+* February 3, 2022
+* Code HS 3.1.7: Sugar Tax
+* Program determines whether a person can consume more sugar.
+*/
+import java.util.Scanner;
+public class AddedSugar
+{
+    public static void main(String[] args)
+    {
+        // Ask the user for the grams of sugar
+        int sugarGrams;
+        boolean moreSugar;
+        Scanner input = new Scanner(System.in);
+        System.out.println("How many grams of sugar have you eaten today?");
+        sugarGrams = input.nextInt();  
+        // Use a boolean expression to print if they can eat more sugar
+        moreSugar = sugarGrams < 30;
+        System.out.println("You can eat mor sugar: " + moreSugar);
+    }
+}
