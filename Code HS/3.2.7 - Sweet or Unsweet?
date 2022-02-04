@@ -1,0 +1,31 @@
+/*
+* Joshua de Souza
+* February 4, 2022
+* Code HS: Sweet or Unsweet?
+* Program prints a customer's order.
+*/
+import java.util.Scanner;
+public class DrinkOrder
+{
+    public static void main(String[] args)
+    {
+        //Variable Declaration & Initialization
+        int sugar;
+        String order;
+        Scanner input = new Scanner(System.in);
+        System.out.println("What do you want to drink?");
+        order = input.nextLine(); 
+        System.out.println("How many teaspoons of sugar do you want?");
+        sugar = input.nextInt(); 
+        System.out.println(" ");
+        System.out.println("Confirming your order. You wanted:");
+        if (sugar > 0) 
+        {
+            System.out.println(order + " with sugar");
+        }
+        else
+        {
+            System.out.println(order);
+        }
+    }//end main
+}//end class 
