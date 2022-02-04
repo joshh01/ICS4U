@@ -1,0 +1,16 @@
+/*
+* Joshua de Souza
+* February 4, 2022
+* Code HS: Welcome Program
+* Program prints information about a user.
+*/
+public class Welcome 
+{
+    public static void main(String[] args)
+    {
+        //Your name
+        System.out.println("My name is Josh.");
+        //Something you like
+        System.out.println("I like hockey.");
+    } 
+}
