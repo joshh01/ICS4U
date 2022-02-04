@@ -1,0 +1,7 @@
+//February 4, 2022
+String Functions
+  .infexOf("d") - returns first time we see "d"
+  .substring(x)
+  .substring(x,y)
+  .compareTo() - compare the ASCII values of strings: how we order and sort strings
+  .equalsIgnoreCase() 
