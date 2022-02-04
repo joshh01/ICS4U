@@ -1,0 +1,16 @@
+/*
+* Joshua de Souza
+* February 4, 2022
+* Code HS: ASCII Art
+* Program prints a dog.
+*/
+public class Art 
+{
+    public static void main(String[] args)
+    {
+       System.out.println("   /)___");
+       System.out.println("  /     O|___");
+       System.out.println(" /           )");
+       System.out.println("/       )___/");
+    }
+}
