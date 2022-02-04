@@ -17,6 +17,6 @@ public class AddedSugar
         sugarGrams = input.nextInt();  
         // Use a boolean expression to print if they can eat more sugar
         moreSugar = sugarGrams < 30;
-        System.out.println("You can eat mor sugar: " + moreSugar);
+        System.out.println("You can eat more sugar: " + moreSugar);
     }
 }
