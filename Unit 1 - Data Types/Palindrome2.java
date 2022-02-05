@@ -1,3 +1,4 @@
+/*
  * Joshua de Souza
  * February 2, 2022
  * U1 A2 Q4: Palindrome2
@@ -21,31 +22,34 @@ public class Palindrome2
 		//Loops through each word
 		for(String words : brokenSentence) 
 		{
-			for(int i = words.length() - 1; i >= 0; i--) 
+			if(words.length() > 1) 
 			{
-				reversedWord = reversedWord + words.charAt(i);
-			}
-			if(words.toLowerCase().contentEquals(reversedWord.toLowerCase())) 
-			{
-				counter = counter + 1;
-				//Puts palindromes into a list, adding commas if there is already a list
-				if(palindromes.contentEquals("")) 
+				for(int i = words.length() - 1; i >= 0; i--) 
 				{
-					palindromes = palindromes + words;
-				} 
-				else 
-				{
-				palindromes = palindromes + ", " + words;
+					reversedWord = reversedWord + words.charAt(i);
 				}
-			} 
-			reversedWord = "";
+				if(words.toLowerCase().contentEquals(reversedWord.toLowerCase())) 
+				{
+					counter = counter + 1;
+					//Puts palindromes into a list, adding commas if there is already a list
+					if(palindromes.contentEquals("")) 
+					{
+						palindromes = palindromes + words;
+					} 
+					else 
+					{
+						palindromes = palindromes + ", " + words;
+					}
+				} 
+				reversedWord = "";
+			}
 		}
 		//Printing results
 		System.out.println("Your sentence: " + userSentence);
 		System.out.println("Number of palindromes: " + counter);
 		System.out.println("Valid palindromes: " + palindromes);
 		//Popup results changing grammar based on count of palindromes
-		if(counter > 1) 
+		if(counter > 1 || counter == 0) 
 		{
 			JOptionPane.showMessageDialog(null, 
 	                "There are " + counter + " palindromes in your sentence.", 
