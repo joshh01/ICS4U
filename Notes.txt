@@ -5,3 +5,9 @@ String Functions
   .substring(x,y)
   .compareTo() - compare the ASCII values of strings: how we order and sort strings
   .equalsIgnoreCase() 
+
+if(boolean)? true : false;
+
+word.substring(word.indexOf(" ") + 1) //returns a word (in a string?)
+//starts at x, ending at y - 1
+
