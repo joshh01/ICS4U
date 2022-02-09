@@ -11,3 +11,7 @@ if(boolean)? true : false;
 word.substring(word.indexOf(" ") + 1) //returns a word (in a string?)
 //starts at x, ending at y - 1
 
+2 letter word --> -1 when looping through strings
+substring(i, i + 2) for a 2 letter word
+
+int(Math.random)) --> TRUNCATES (chops off decimals as math.random generates no numbers above .999)
