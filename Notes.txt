@@ -5,6 +5,11 @@ String Functions
   .substring(x,y)
   .compareTo() - compare the ASCII values of strings: how we order and sort strings
   .equalsIgnoreCase() 
+  
+ Math Functions
+  Math.round(double)
+  Math.floor(number) - rounds any number down
+  Math.ceil(number) - rounds any number up
 
 if(boolean)? true : false;
 
@@ -15,3 +20,6 @@ word.substring(word.indexOf(" ") + 1) //returns a word (in a string?)
 substring(i, i + 2) for a 2 letter word
 
 int(Math.random)) --> TRUNCATES (chops off decimals as math.random generates no numbers above .999)
+Math.floor(Math.random() * 10) + 1 --> RANDOM NUMBER FROM 1-10
+Math.floor(Math.random() * (5+1)) + 5 --> RANDOM NUMBER FROM 5-10
+GENERAL FORMULA: (int)(Math.random() * (range + 1) + start)
