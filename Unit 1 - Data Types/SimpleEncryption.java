@@ -44,7 +44,7 @@ public class SimpleEncryption {
 			System.out.println("The original phrase was: " + userSentence.toUpperCase());
 			System.out.println("The encrypted phrase is: " + encryptedMessage.toUpperCase());
 		}
-		else if(choice.equals("2"))
+		else if(choice.equals("2"))	
 		{
 			System.out.println("ROTATION AMOUNT: " + rotationAmount);
 			System.out.println("CHOICE: Decryption");
@@ -58,7 +58,7 @@ public class SimpleEncryption {
 				{
 					if((lowerCaseSentence.charAt(i) - rotationAmount) < 97)
 					{
-						encryptedMessage = encryptedMessage + (char)(122 - ((lowerCaseSentence.charAt(i) + rotationAmount)) + 98);
+						encryptedMessage = encryptedMessage + (char)(98 + (lowerCaseSentence.charAt(i) - rotationAmount) - 104);
 					}
 					else
 					{
