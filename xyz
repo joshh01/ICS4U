@@ -1,0 +1,16 @@
+import java.util.ArrayList;
+public class Bank {
+	//private double accountNumber;
+	//private double balance;
+	//String accountType;
+	//ArrayList<String> name;
+	private String name;
+	private String address;
+	private String phoneNumber;
+	
+	//Default Constructor
+	public Bank()
+	{
+		
+	}
+}
