@@ -3,21 +3,23 @@ public class DogClient
 {
 	public static void main(String[] args) 
 	{
+		//Variable Declarations & Initializations
 		String name, breed;
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Two dogs will be created.");
-		System.out.println("What is the name of the first dog?");
+		System.out.print("What is the name of the first dog? ");
 		name = scanner.nextLine();
-		System.out.println("What breed is " + name + " ?");
+		System.out.print("What breed is " + name + " ? ");
 		breed = scanner.nextLine();
-		Dog firstDog = new Dog(name, breed);
-		System.out.println("What is the name of the second dog?");
+		Dog2 firstDog = new Dog2(name, breed);
+		System.out.print("What is the name of the second dog? ");
 		name = scanner.nextLine();
-		System.out.println("What breed is " + name + " ?");
+		System.out.print("What breed is " + name + " ? ");
 		breed = scanner.nextLine();
-		Dog secondDog = new Dog(name, breed);
+		Dog2 secondDog = new Dog2(name, breed);
 		System.out.println();
 		System.out.println("Printing dog information.");
+		System.out.println();
 		System.out.println(firstDog);
 		System.out.println(secondDog);
 		//Confirm or Change aggression level
@@ -54,27 +56,32 @@ public class DogClient
 			secondDog.setHunger(scanner.nextDouble());
 			System.out.println(secondDog.getName() + "'s hunger level is now set to " + secondDog.getHunger() + ".");
 		}
-		System.out.println(firstDog.getAggression() + ", " + firstDog.getHunger());
-		System.out.println(secondDog.getAggression() + ", " + secondDog.getHunger());
+		System.out.println();
+		scanner.close();
+		twoDogsMeet(firstDog, secondDog);
+	}//end main()
+	public static void twoDogsMeet(Dog2 firstDog, Dog2 secondDog)
+	{
+		double aL1, aL2, hL1, hL2, x;
 		aL1 = firstDog.getAggression();
 		aL2 = secondDog.getAggression();
 		hL1 = firstDog.getHunger();
 		hL2 = secondDog.getHunger();
 		x = Math.sqrt(((hL2 - hL1)*(hL2 - hL1)) + ((aL2 - aL1)*(aL2 - aL1)));
-		System.out.println(x);
 		if(x > 5)
 		{
 			System.out.println("This meeting will be aggressive.");
-		}
+			if(firstDog.getAggression() > secondDog.getAggression()) {
+				System.out.println(firstDog.getName() + " has retrieved the food.");
+			}//end if
+			else
+			{
+				System.out.println(secondDog.getName() + " has retrieved the food.");
+			}//end else
+		}//end if
 		else if(x <= 5)
 		{
 			System.out.println("This meeting will be passive.");
-		}
-		else
-		{
-			System.out.println("This meeting is undefined.");;
-		}
-		//System.out.println(firstDog);
-		scanner.close();
-	}
+		}//end else if
+	}//end twoDogsMeet()
 }
