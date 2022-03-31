@@ -83,6 +83,7 @@ public class Accounts
 		System.out.print("How much would you like to deposit? ");
 		amount = scanner.nextDouble();
 		balance += amount;
+		System.out.println("You have successfully deposited $" + amount + " into your account. Your new balance is $" + balance + ".\n");
 	}//end deposit()
 	public void withdraw()
 	{
@@ -90,18 +91,8 @@ public class Accounts
 		System.out.println("How much would you like to withdraw?");
 		amount = scanner.nextDouble();
 		balance -= amount;
-		System.out.println("Your new balance is: $" + balance);
+		System.out.println("You have successfully withdrawn $" + amount + " from your account. Youe new balance is $" + balance + ".\n");
 	}//end withdraw()
-	/*
-	public boolean searchAccount(String accNo)
-	{
-		if(accountNumber.equals(accNo))
-		{
-			toString();
-			return true;
-		}
-		return false;
-	}//end searchAccount()*/
 	public String toString()
 	{
 		return "Name on Account: " + name + "\n" + 
