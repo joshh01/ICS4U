@@ -1,109 +1,114 @@
 import java.util.Scanner;
-public class BankClient 
+public class Accounts 
 {
-	public static Scanner scanner = new Scanner(System.in);
-	public static void main(String[] args) 
+	private double balance;
+	private String accountNumber;
+	private String accountType;
+	private String name;
+	private String address;
+	private String phoneNumber;
+	Scanner scanner = new Scanner(System.in);
+	//Default Constructor
+	public Accounts()
 	{
-		//Variable Declarations & Initializations
-		int choice;
-		boolean found = false;
-		Bank bank = new Bank();
-		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172");
-		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "649-965-0521");
-		//Scanner scanner = new Scanner(System.in);
-		bank.addAccount(account);
-		do
+		accountNumber = "0000-0000-0000-0000";
+		accountType = "Savings";
+		name = "-";
+		address = "-";
+		phoneNumber = "-";
+		balance = 0.0;
+	}//end Accounts() default
+	public Accounts(double balance, String accNo, String accType, String name, String add, String phoneNum)
+	{
+		this.balance = balance;
+		accountNumber = accNo;
+		accountType = accType;
+		this.name = name;
+		address = add;
+		phoneNumber = phoneNum;
+	}//end Accounts()
+	//Get Methods
+	public double getBalance()
+	{
+		return balance;
+	}//end getBalance()
+	public String getAccountNumber()
+	{
+		return accountNumber;
+	}//end getAccountNumber()
+	public String getAccountType()
+	{
+		return accountType;
+	}//end getAccountType()
+	public String getName()
+	{
+		return name;
+	}//end getName()
+	public String getAddress()
+	{
+		return address;
+	}//end getAddress()
+	public String getPhoneNumber()
+	{
+		return phoneNumber;
+	}//end getPhoneNumber()
+	//Set Methods
+	public void setBalance(double bal)
+	{
+		balance = bal;
+	}//end setBalance()
+	public void setAccountNumber(String accNo)
+	{
+		accountNumber = accNo;
+	}//end setAccountNumber()
+	public void setAccountType(String accType)
+	{
+		accountType = accType;
+	}//end setAccountType()
+	public void setName(String nam)
+	{
+		name = nam;
+	}//end setName()
+	public void setAddress(String addr)
+	{
+		address = addr;
+	}//end setAddress
+	public void setPhoneNumber(String num)
+	{
+		phoneNumber = num;
+	}//end setPhoneNumber()
+	public void deposit()
+	{
+		double amount;
+		System.out.print("How much would you like to deposit? ");
+		amount = scanner.nextDouble();
+		balance += amount;
+	}//end deposit()
+	public void withdraw()
+	{
+		double amount;
+		System.out.println("How much would you like to withdraw?");
+		amount = scanner.nextDouble();
+		balance -= amount;
+		System.out.println("Your new balance is: $" + balance);
+	}//end withdraw()
+	/*
+	public boolean searchAccount(String accNo)
+	{
+		if(accountNumber.equals(accNo))
 		{
-			welcome(bank);
-            choice = Integer.parseInt(scanner.nextLine());
-            switch(choice)
-            {
-            case 1:
-            	System.out.println("Choice: [1] Create a bank account.");
-                Accounts acc = createAccount();
-                bank.addAccount(acc);
-                System.out.println("An account has been opened under " + acc.getName() + ". Use [6] to review your information.\n");
-                break;
-            case 2:
-            	System.out.println("Choice: [2] View bank information.");
-            	System.out.println(bank.bankInfo());
-            	break;
-            case 3:
-            	/*
-            	System.out.println("Choice: [3] Make a deposit");
-            	System.out.println("What account [id] would you like to deposit into?");
-            	String accNum = scanner.nextLine();
-            	for(int i = 0; i < bank.accountList().length() - 1; i++)
-            	{
-            		found = bank.accountAL().get(0).searchAccount(accNum);
-            		if(found)
-            		{
-            			bank.accountAL().get(0).deposit();
-            		}
-            	}
-            	System.out.println(account);
-            	//search here
-            	break;*/
-            case 4:
-            	System.out.println("Choice: [4] Withdraw money");
-            	//search here
-            	break;
-            case 5:
-            	System.out.println("Choice: [5] View all accounts");
-            	System.out.println(bank.accountList() + "\n");
-            	break;
-            case 6:
-            	System.out.println("Choice: [6] Search for an account");
-            	//search here
-            	break;
-            case 7:
-            	System.out.println("Choice: [7] Edit account information");
-            	//search here
-            	break;
-            case 8:
-            	System.out.println("Choice: [8] Transfer funds");
-            	//search here, take 2 accs
-            	break;
-            case 9:
-            	System.out.println("Thank you for using " + bank.getName() + " today!");
-            	break;
-            default:
-            	System.out.println("You have entered an invalid choice. Please try again.\n");
-            }
-        }
-        while (choice != 9);
-	}//end main()
-	public static Accounts createAccount()
+			toString();
+			return true;
+		}
+		return false;
+	}//end searchAccount()*/
+	public String toString()
 	{
-		Accounts acc = new Accounts();
-		String accNo = "";
-		//Scanner scanner = new Scanner(System.in);
-		System.out.print("What name would you like to be put on the account? ");
-		acc.setName(scanner.nextLine());
-		accNo = ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000));
-		acc.setAccountNumber(accNo);
-		System.out.print("What type of account would you like to open? [Checking, Savings, MMA, CD] ");
-		acc.setAccountType(scanner.nextLine());
-		System.out.print("For security purposes, what is your address? ");
-		acc.setAddress(scanner.nextLine());
-		System.out.print("For contact purposes, what is your phone number? ");
-		acc.setPhoneNumber(scanner.nextLine());	
-		System.out.println();
-		return acc;
-	}//end createAccount()
-	public static void welcome(Bank bank)
-	{
-		System.out.println("Welcome to " + bank.getName() + "!");
-		System.out.println("Please choose from one of our options to get started!");
-		System.out.println("[1] Create a bank account ");
-		System.out.println("[2] View bank information");
-		System.out.println("[3] Make a deposit");
-		System.out.println("[4] Withdraw money");
-		System.out.println("[5] View all accounts");
-		System.out.println("[6] Search for an account");
-		System.out.println("[7] Edit account information");
-		System.out.println("[8] Transfer funds");
-		System.out.println("[9] Exit");
-		System.out.println();
-	}//end welcome()
+		return "Name on Account: " + name + "\n" + 
+				"Account Number: " + accountNumber + "\n" +
+				"Account Type: " + accountType + "\n" + 
+				"Address: " + address + "\n" +
+				"Phone Number: " + phoneNumber + "\n" +
+				"Balance: $" + balance + "\n";
+	}
 }//end class
