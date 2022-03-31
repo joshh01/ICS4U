@@ -53,6 +53,15 @@ public class Bank
 		}
 		return str;
 	}//end accountList()
+	public ArrayList<Accounts> accountAL()
+	{
+		ArrayList<Accounts> AL = new ArrayList<Accounts>();
+		for(int i = 0; i < accounts.size(); i++)
+		{
+			AL.add(accounts.get(i));
+		}
+		return AL;
+	}
 	public String bankInfo()
 	{
 		return "Name: " + name + "\n" + 
