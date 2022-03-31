@@ -9,7 +9,6 @@ public class BankClient
 		Bank bank = new Bank();
 		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172");
 		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "649-965-0521");
-		//Scanner scanner = new Scanner(System.in);
 		bank.addAccount(account);
 		bank.addAccount(acc2);
 		do
@@ -22,7 +21,7 @@ public class BankClient
             	System.out.println("Choice: [1] Create a bank account.");
                 Accounts acc = createAccount();
                 bank.addAccount(acc);
-                System.out.println("An account has been opened under " + acc.getName() + ". Use [6] to review your information.\n");
+                System.out.println("An account has been opened under " + acc.getName() + ". Your account number is " + acc.getAccountNumber() + " Use [6] to review your information.\n");
                 break;
             case 2:
             	System.out.println("Choice: [2] View bank information.");
@@ -47,7 +46,6 @@ public class BankClient
             	System.out.println("Choice: [4] Withdraw money");
             	System.out.println("What account [ID] would you like to withdraw from?");
             	String accNumber = scanner.nextLine();
-            	//search here
             	if(searchAccount(bank, accNumber))
             	{
             		Accounts fetchedAcc = getAccount(bank, accNumber);
@@ -56,7 +54,7 @@ public class BankClient
             	}
             	else
             	{
-            		System.out.println("The account number you have entered [" + accNumber + "] is invalid. Please restart and try again.");
+            		System.out.println("The account number you have entered [" + accNumber + "] is invalid. Please restart and try again.\n");
             	}
             	break;
             case 5:
@@ -66,6 +64,19 @@ public class BankClient
             case 6:
             	System.out.println("Choice: [6] Search for an account");
             	//search here
+            	System.out.println("What account [ID] would you like to view?");
+            	String accountNum = scanner.nextLine();
+            	System.out.println();
+            	if(searchAccount(bank, accountNum))
+            	{
+            		Accounts fetchedAcc = getAccount(bank, accountNum);
+            		System.out.println("Welcome " + fetchedAcc.getName() + "!");
+            		System.out.println(fetchedAcc);	
+            	}
+            	else
+            	{
+            		System.out.println("The account number you have entered [" + accountNum + "] is invalid. Please restart and try again.\n");
+            	}
             	break;
             case 7:
             	System.out.println("Choice: [7] Edit account information");
@@ -87,13 +98,19 @@ public class BankClient
 	public static Accounts createAccount()
 	{
 		Accounts acc = new Accounts();
-		String accNo = "";
+		String accNo = "", accType;
 		//Scanner scanner = new Scanner(System.in);
 		System.out.print("What name would you like to be put on the account? ");
 		acc.setName(scanner.nextLine());
 		accNo = ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000));
 		acc.setAccountNumber(accNo);
-		System.out.print("What type of account would you like to open? [Checking, Savings, MMA, CD] ");
+		System.out.print("What type of account would you like to open? [Chequing, Savings, MMA, CD] ");
+		accType = scanner.nextLine();
+		while (!accType.equals("Chequing") && !accType.equals("Savings") && !accType.equals("MMA") && !accType.equals("CD"))
+		{
+			System.out.print("The account type you have entered [" + accType + "] is invalid. Please choose from the following: [Chequing, Savings, MMA, CD].");
+			accType = scanner.nextLine();
+		}
 		acc.setAccountType(scanner.nextLine());
 		System.out.print("For security purposes, what is your address? ");
 		acc.setAddress(scanner.nextLine());
