@@ -6,12 +6,12 @@ public class BankClient
 	{
 		//Variable Declarations & Initializations
 		int choice;
-		boolean found = false;
 		Bank bank = new Bank();
 		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172");
 		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "649-965-0521");
 		//Scanner scanner = new Scanner(System.in);
 		bank.addAccount(account);
+		bank.addAccount(acc2);
 		do
 		{
 			welcome(bank);
@@ -29,27 +29,38 @@ public class BankClient
             	System.out.println(bank.bankInfo());
             	break;
             case 3:
-            	/*
             	System.out.println("Choice: [3] Make a deposit");
-            	System.out.println("What account [id] would you like to deposit into?");
+            	System.out.println("What account [ID] would you like to deposit into?");
             	String accNum = scanner.nextLine();
-            	for(int i = 0; i < bank.accountList().length() - 1; i++)
+            	if(searchAccount(bank, accNum))
             	{
-            		found = bank.accountAL().get(0).searchAccount(accNum);
-            		if(found)
-            		{
-            			bank.accountAL().get(0).deposit();
-            		}
+            		Accounts fetchedAcc = getAccount(bank, accNum);
+            		System.out.println("Welcome " + fetchedAcc.getName() + "!");
+            		fetchedAcc.deposit();
             	}
-            	System.out.println(account);
-            	//search here
-            	break;*/
+            	else
+            	{
+            		System.out.println("The account number you have entered [" + accNum + "] is invalid. Please restart and try again.");
+            	}
+            	break;
             case 4:
             	System.out.println("Choice: [4] Withdraw money");
+            	System.out.println("What account [ID] would you like to withdraw from?");
+            	String accNumber = scanner.nextLine();
             	//search here
+            	if(searchAccount(bank, accNumber))
+            	{
+            		Accounts fetchedAcc = getAccount(bank, accNumber);
+            		System.out.println("Welcome " + fetchedAcc.getName() + "!");
+            		fetchedAcc.withdraw();
+            	}
+            	else
+            	{
+            		System.out.println("The account number you have entered [" + accNumber + "] is invalid. Please restart and try again.");
+            	}
             	break;
             case 5:
-            	System.out.println("Choice: [5] View all accounts");
+            	System.out.println("Choice: [5] View all accounts\n");
             	System.out.println(bank.accountList() + "\n");
             	break;
             case 6:
@@ -106,4 +117,27 @@ public class BankClient
 		System.out.println("[9] Exit");
 		System.out.println();
 	}//end welcome()
+	public static boolean searchAccount(Bank bank, String accNum)
+	{
+		for(int i = 0; i < bank.accountAL().size(); i++)
+    	{
+    		if(bank.accountAL().get(i).getAccountNumber().contentEquals(accNum)) 
+    		{
+    			return true;
+    		}//end if loop
+    	}//end for loop
+		return false;
+	}//end searchAccount()
+	public static Accounts getAccount(Bank bank, String accNum)
+	{
+		int index = -1;
+		for(int i = 0; i < bank.accountAL().size(); i++)
+    	{
+    		if(bank.accountAL().get(i).getAccountNumber().contentEquals(accNum)) 
+    		{
+    			index = i;
+    		}//end if loop
+    	}//end for loop
+		return bank.accountAL().get(index);
+	}//end getAccount()
 }//end class
