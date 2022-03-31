@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Accounts 
 {
 	private double balance;
@@ -6,6 +7,7 @@ public class Accounts
 	private String name;
 	private String address;
 	private String phoneNumber;
+	Scanner scanner = new Scanner(System.in);
 	//Default Constructor
 	public Accounts()
 	{
@@ -75,6 +77,31 @@ public class Accounts
 	{
 		phoneNumber = num;
 	}//end setPhoneNumber()
+	public void deposit()
+	{
+		double amount;
+		System.out.print("How much would you like to deposit? ");
+		amount = scanner.nextDouble();
+		balance += amount;
+	}//end deposit()
+	public void withdraw()
+	{
+		double amount;
+		System.out.println("How much would you like to withdraw?");
+		amount = scanner.nextDouble();
+		balance -= amount;
+		System.out.println("Your new balance is: $" + balance);
+	}//end withdraw()
+	/*
+	public boolean searchAccount(String accNo)
+	{
+		if(accountNumber.equals(accNo))
+		{
+			toString();
+			return true;
+		}
+		return false;
+	}//end searchAccount()*/
 	public String toString()
 	{
 		return "Name on Account: " + name + "\n" + 
