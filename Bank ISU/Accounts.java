@@ -88,10 +88,16 @@ public class Accounts
 	public void withdraw()
 	{
 		double amount;
-		System.out.println("How much would you like to withdraw?");
+		System.out.print("How much would you like to withdraw? ");
 		amount = scanner.nextDouble();
+		if(amount > balance)
+		{
+			System.out.println("The amount you have entered [$" + amount + "] is larger than your balance [$" + balance + "]. Please try again with an amount equal to or lower than your balance.\n");
+			return;
+		}
 		balance -= amount;
-		System.out.println("You have successfully withdrawn $" + amount + " from your account. Youe new balance is $" + balance + ".\n");
+		System.out.println("You have successfully withdrawn $" + amount + " from your account. Your new balance is $" + balance + ".\n");
+		//System.out.println("100s: " + amount % 100 + "\n50s: " + (amount % 100) % 50 + "\n20s: " + ((amount % 100) % 50) % 20 + "\n10s: " + (((amount % 100) % 50) % 20) % 10 + "\n5s: " + ((((amount % 100) % 50) % 20) % 10) % 5);
 	}//end withdraw()
 	public String toString()
 	{
