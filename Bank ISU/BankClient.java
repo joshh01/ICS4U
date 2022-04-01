@@ -8,9 +8,9 @@ public class BankClient
 		int choice;
 		Bank bank = new Bank();
 		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172");
-		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "649-965-0521");
+		//Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "647-965-0521");
 		bank.addAccount(account);
-		bank.addAccount(acc2);
+		//bank.addAccount(acc2);
 		do
 		{
 			welcome(bank);
@@ -71,7 +71,7 @@ public class BankClient
             	{
             		Accounts fetchedAcc = getAccount(bank, accountNum);
             		System.out.println("Welcome " + fetchedAcc.getName() + "!");
-            		System.out.println(fetchedAcc);	
+            		System.out.println(fetchedAcc);
             	}
             	else
             	{
@@ -87,13 +87,30 @@ public class BankClient
             	//search here, take 2 accs
             	break;
             case 9:
+            	System.out.println("Choice: [9] View Transactions");
+            	System.out.println("What account [ID] would you like to view?");
+            	String accountNumber = scanner.nextLine();
+            	System.out.println();
+            	if(searchAccount(bank, accountNumber))
+            	{
+            		Accounts fetchedAcc = getAccount(bank, accountNumber);
+            		System.out.println("Welcome " + fetchedAcc.getName() + "!");
+            		System.out.println("Transactions:\n\n");
+            		System.out.println(fetchedAcc.actionList());
+            	}
+            	else
+            	{
+            		System.out.println("The account number you have entered [" + accountNumber + "] is invalid. Please restart and try again.\n");
+            	}
+            	break;
+            case 10:
             	System.out.println("Thank you for using " + bank.getName() + " today!");
             	break;
             default:
             	System.out.println("You have entered an invalid choice. Please try again.\n");
             }
         }
-        while (choice != 9);
+        while (choice != 10);
 	}//end main()
 	public static Accounts createAccount()
 	{
@@ -131,7 +148,8 @@ public class BankClient
 		System.out.println("[6] Search for an account");
 		System.out.println("[7] Edit account information");
 		System.out.println("[8] Transfer funds");
-		System.out.println("[9] Exit");
+		System.out.println("[9] View Transactions");
+		System.out.println("[10] Exit");
 		System.out.println();
 	}//end welcome()
 	public static boolean searchAccount(Bank bank, String accNum)
