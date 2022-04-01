@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Accounts 
 {
 	private double balance;
@@ -7,6 +8,7 @@ public class Accounts
 	private String name;
 	private String address;
 	private String phoneNumber;
+	ArrayList<String> transactions = new ArrayList<String>();
 	Scanner scanner = new Scanner(System.in);
 	//Default Constructor
 	public Accounts()
@@ -52,6 +54,10 @@ public class Accounts
 	{
 		return phoneNumber;
 	}//end getPhoneNumber()
+	public ArrayList<String> getTransactions()
+	{
+		return transactions;
+	}//end getTransactions()
 	//Set Methods
 	public void setBalance(double bal)
 	{
@@ -77,12 +83,26 @@ public class Accounts
 	{
 		phoneNumber = num;
 	}//end setPhoneNumber()
+	public String actionList()
+	{
+		String str = "";
+		for(int i = 0; i < transactions.size(); i++)
+		{
+			str = str + transactions.get(i) + "\n";
+		}//end for loop
+		if(str.contentEquals(""))
+		{
+			return "There have been no transactions.\n";
+		}
+		return str;
+	}//end actionList()
 	public void deposit()
 	{
 		double amount;
 		System.out.print("How much would you like to deposit? ");
 		amount = scanner.nextDouble();
 		balance += amount;
+		transactions.add("NEW DEPOSIT: $" + amount + ". BALANCE [" + (balance - amount) + "] --> [" + balance + "]");
 		System.out.println("You have successfully deposited $" + amount + " into your account. Your new balance is $" + balance + ".\n");
 	}//end deposit()
 	public void withdraw()
@@ -96,6 +116,7 @@ public class Accounts
 			return;
 		}
 		balance -= amount;
+		transactions.add("NEW WITHDRAWAL: $" + amount + ". BALANCE [" + (balance) + "] --> [" + (balance - amount) + "]");
 		System.out.println("You have successfully withdrawn $" + amount + " from your account. Your new balance is $" + balance + ".\n");
 		//System.out.println("100s: " + amount % 100 + "\n50s: " + (amount % 100) % 50 + "\n20s: " + ((amount % 100) % 50) % 20 + "\n10s: " + (((amount % 100) % 50) % 20) % 10 + "\n5s: " + ((((amount % 100) % 50) % 20) % 10) % 5);
 	}//end withdraw()
