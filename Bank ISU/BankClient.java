@@ -98,7 +98,7 @@ public class BankClient
 	public static Accounts createAccount()
 	{
 		Accounts acc = new Accounts();
-		String accNo = "", accType;
+		String accNo = "", accType = "";
 		//Scanner scanner = new Scanner(System.in);
 		System.out.print("What name would you like to be put on the account? ");
 		acc.setName(scanner.nextLine());
@@ -108,7 +108,7 @@ public class BankClient
 		accType = scanner.nextLine();
 		while (!accType.equals("Chequing") && !accType.equals("Savings") && !accType.equals("MMA") && !accType.equals("CD"))
 		{
-			System.out.print("The account type you have entered [" + accType + "] is invalid. Please choose from the following: [Chequing, Savings, MMA, CD].");
+			System.out.print("The account type you have entered [" + accType + "] is invalid. Please choose from the following: [Chequing, Savings, MMA, CD]. ");
 			accType = scanner.nextLine();
 		}
 		acc.setAccountType(scanner.nextLine());
