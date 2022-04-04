@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 public class Accounts 
 {
 	private double balance;
@@ -8,6 +10,7 @@ public class Accounts
 	private String name;
 	private String address;
 	private String phoneNumber;
+	private String password;
 	ArrayList<String> transactions = new ArrayList<String>();
 	Scanner scanner = new Scanner(System.in);
 	//Default Constructor
@@ -20,7 +23,7 @@ public class Accounts
 		phoneNumber = "-";
 		balance = 0.0;
 	}//end Accounts() default
-	public Accounts(double balance, String accNo, String accType, String name, String add, String phoneNum)
+	public Accounts(double balance, String accNo, String accType, String name, String add, String phoneNum, String password)
 	{
 		this.balance = balance;
 		accountNumber = accNo;
@@ -28,6 +31,7 @@ public class Accounts
 		this.name = name;
 		address = add;
 		phoneNumber = phoneNum;
+		this.password = password;
 	}//end Accounts()
 	//Get Methods
 	public double getBalance()
@@ -54,6 +58,10 @@ public class Accounts
 	{
 		return phoneNumber;
 	}//end getPhoneNumber()
+	public String getPassword()
+	{
+		return password;
+	}//end getPassword()
 	public ArrayList<String> getTransactions()
 	{
 		return transactions;
@@ -83,6 +91,31 @@ public class Accounts
 	{
 		phoneNumber = num;
 	}//end setPhoneNumber()
+	public void setPassword(String pass)
+	{
+		password = pass;
+	}//end setPassword()
+	public void changePassword()
+	{
+		String str, newPass;
+		System.out.print("Please enter your current password. ");
+		str = scanner.nextLine();
+		if(str.equals(password))
+		{
+			System.out.print("Welcome " + getName() + ". What would you like to change your password to? ");
+			newPass = scanner.nextLine();
+			System.out.print("Please enter the new password once more to confirm. ");
+			if(newPass.equals(scanner.nextLine()))
+			{
+				password = newPass;
+				System.out.println("Your password has been updated.\n");
+			}
+		}
+		else
+		{
+			System.out.println("The password you have entered is incorrect. Please restart and try again.\n");
+		}
+	}
 	public String actionList()
 	{
 		String str = "";
@@ -98,15 +131,19 @@ public class Accounts
 	}//end actionList()
 	public void deposit()
 	{
+		SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+        String timeOfDay = date.format(new Date());
 		double amount;
 		System.out.print("How much would you like to deposit? ");
 		amount = scanner.nextDouble();
 		balance += amount;
-		transactions.add("NEW DEPOSIT: $" + amount + ". BALANCE [" + (balance - amount) + "] --> [" + balance + "]");
+		transactions.add(timeOfDay + " | NEW DEPOSIT: $" + amount + ". BALANCE [" + (balance - amount) + "] --> [" + balance + "]");
 		System.out.println("You have successfully deposited $" + amount + " into your account. Your new balance is $" + balance + ".\n");
 	}//end deposit()
 	public void withdraw()
 	{
+		SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+        String time = date.format(new Date());
 		double amount;
 		System.out.print("How much would you like to withdraw? ");
 		amount = scanner.nextDouble();
@@ -116,7 +153,7 @@ public class Accounts
 			return;
 		}
 		balance -= amount;
-		transactions.add("NEW WITHDRAWAL: $" + amount + ". BALANCE [" + (balance) + "] --> [" + (balance - amount) + "]");
+		transactions.add(time + " | NEW WITHDRAWAL: $" + amount + ". BALANCE [" + (balance) + "] --> [" + (balance - amount) + "]");
 		System.out.println("You have successfully withdrawn $" + amount + " from your account. Your new balance is $" + balance + ".\n");
 		//System.out.println("100s: " + amount % 100 + "\n50s: " + (amount % 100) % 50 + "\n20s: " + ((amount % 100) % 50) % 20 + "\n10s: " + (((amount % 100) % 50) % 20) % 10 + "\n5s: " + ((((amount % 100) % 50) % 20) % 10) % 5);
 	}//end withdraw()
