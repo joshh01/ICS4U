@@ -137,7 +137,7 @@ public class Accounts
 		System.out.print("How much would you like to deposit? ");
 		amount = scanner.nextDouble();
 		balance += amount;
-		transactions.add(timeOfDay + " | NEW DEPOSIT: $" + amount + ". BALANCE [" + (balance - amount) + "] --> [" + balance + "]");
+		transactions.add(timeOfDay + " | " + accountNumber + " | NEW DEPOSIT: $" + amount + ". BALANCE [" + (balance - amount) + "] --> [" + balance + "]");
 		System.out.println("You have successfully deposited $" + amount + " into your account. Your new balance is $" + balance + ".\n");
 	}//end deposit()
 	public void withdraw()
@@ -153,7 +153,7 @@ public class Accounts
 			return;
 		}
 		balance -= amount;
-		transactions.add(time + " | NEW WITHDRAWAL: $" + amount + ". BALANCE [" + (balance) + "] --> [" + (balance - amount) + "]");
+		transactions.add(time + " | " + accountNumber + " | NEW WITHDRAWAL: $" + amount + ". BALANCE [" + (balance) + "] --> [" + (balance - amount) + "]");
 		System.out.println("You have successfully withdrawn $" + amount + " from your account. Your new balance is $" + balance + ".\n");
 		//System.out.println("100s: " + amount % 100 + "\n50s: " + (amount % 100) % 50 + "\n20s: " + ((amount % 100) % 50) % 20 + "\n10s: " + (((amount % 100) % 50) % 20) % 10 + "\n5s: " + ((((amount % 100) % 50) % 20) % 10) % 5);
 	}//end withdraw()
