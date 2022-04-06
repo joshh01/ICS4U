@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class BankClient 
 {
 	public static Scanner scanner = new Scanner(System.in);
@@ -6,12 +7,28 @@ public class BankClient
 	{
 		//Variable Declarations & Initializations
 		int choice;
-		String name, accountType, address, phoneNumber;
-		Bank bank = new Bank();
+		String name, accountNumber, accountType, address, phoneNumber, str;
+		ArrayList<Bank> banks = new ArrayList<Bank>();
+		Bank td = new Bank();
+		Bank rbc = new Bank("RBC", "76 Islington Avenue", "416-783-6283", "0864");
+		Bank scotiabank = new Bank("Scotiabank", "183 Burlington Drive", "647-002-8362", "9540");
+		banks.add(td);
+		banks.add(rbc);
+		banks.add(scotiabank);
 		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172", "marino");
 		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "647-965-0521", "xd");
-		bank.addAccount(account);
-		bank.addAccount(acc2);
+		//bank.addAccount(account);
+		//bank.addAccount(acc2);
+		System.out.println("Welcome to the Federal Banking System. Please choose from one of our banks to begin.");
+		printBanks(banks);
+		name = scanner.nextLine();
+		while(!validateBank(banks, name))
+		{
+			System.out.println("The bank you have entered [" + name + "] is invalid. Please try again.");
+			name = scanner.nextLine();
+		}
+		//System.out.println(getBank(banks, name));
+		Bank bank = getBank(banks, name);
 		do
 		{
 			welcome(bank);
@@ -19,20 +36,19 @@ public class BankClient
             switch(choice)
             {
             case 1:
+            	System.out.println();
             	System.out.println("Choice: [1] Create a bank account.");
                 Accounts acc = createAccount();
                 bank.addAccount(acc);
                 System.out.println("An account has been opened under " + acc.getName() + ". Your account number is " + acc.getAccountNumber() + " Use [6] to review your information.\n");
                 break;
             case 2:
+            	System.out.println();
             	System.out.println("Choice: [2] View bank information.");
             	System.out.println(bank.bankInfo());
             	break;
             case 3:
-            	System.out.println("Choice: [3] View all accounts\n");
-            	System.out.println(bank.accountList() + "\n");
-            	break;
-            case 4:
+            	System.out.println();
             	System.out.println("Choice: [4] Search for an account");
             	//search here
             	System.out.println("What account [ID] would you like to view?");
@@ -57,7 +73,8 @@ public class BankClient
             		System.out.println("The account number you have entered [" + accountNum + "] is invalid. Please restart and try again.\n");
             	}
             	break;
-            case 5:
+            case 4:
+            	System.out.println();
             	System.out.println("Choice: [5] Login");
             	String userAccNum, userPass;
             	System.out.print("Please enter your account number: ");
@@ -167,7 +184,7 @@ public class BankClient
             	}
             	System.out.println();
             	break;
-            case 6:
+            case 5:
             	System.out.println("Choice: [6] Login as administrator");
             	//login as admin
             	System.out.println("Enter " + bank.getName() + "'s master pin.");
@@ -176,11 +193,66 @@ public class BankClient
             		System.out.println("You have entered an incorrect password. Please restart and try again.\n");
             	}
             	else
-            	{
-            		
+            	{	
+            		do
+            		{
+            			System.out.println();
+            			welcomeAdmin(bank);
+            			System.out.print("Enter your choice: ");
+            			choice = Integer.parseInt(scanner.nextLine());
+            			System.out.println();
+            			switch(choice)
+            			{
+            			case 1:
+            				System.out.println("Choice: [1] View all accounts");
+            				System.out.println(bank.accountList());
+            				break;
+            			case 2:
+            				System.out.println("Choice: [2] Delete an account");
+            				System.out.print("What ID would you like to remove? ");
+            				accountNumber = scanner.nextLine();
+            				for(int i = 0; i < bank.accountAL().size(); i++)
+            				{
+            					if(bank.accountAL().get(i).getAccountNumber().equals(accountNumber))
+            					{
+            						bank.removeAccount(bank.accountAL().get(i));
+            						System.out.println("The account " + accountNumber + " has been deleted.");
+            					}
+            				}
+            				break;
+            			case 3: 
+            				System.out.println("Choice: [3] View recent transactions");
+            				str = "";
+            				for(int i = 0; i < bank.accountAL().size(); i++)
+            				{
+            					str = str + bank.accountAL().get(i).actionList();
+            				}
+            				System.out.println(str);
+            				break;
+            			case 4:
+            				System.out.println("Choice: [4] Search for an account");
+            				System.out.print("What ID would you like to view? ");
+            				accountNumber = scanner.nextLine();
+            				if(searchAccount(bank, accountNumber))
+            				{
+            					System.out.println(getAccount(bank, accountNumber));
+            				}
+            				else
+            				{
+            					System.out.println("The account number you have entered [" + accountNumber + "] is invalid. Please restart and try again.\n");
+            				}
+            				break;
+            			case 5:
+            				System.out.println("You have successfully been logged out.");
+            				break;
+            			default:
+            				System.out.println("You have entered an invalid choice. Please try again.\n");
+            			}
+            		} while(choice != 5);
             	}
             	break;
-            case 7:
+            case 6:
+            	System.out.println();
             	System.out.println("Thank you for using " + bank.getName() + " today!");
             	break;
             default:
@@ -221,12 +293,11 @@ public class BankClient
 		System.out.println("Please choose from one of our options to get started!");
 		System.out.println("[1] Create a bank account");
 		System.out.println("[2] View bank information");
-		System.out.println("[3] View all accounts");
-		System.out.println("[4] Search for an account");
-		System.out.println("[5] Login");
-		System.out.println("[6] Login as administator");
-		System.out.println("[7] Exit");
-		System.out.println();
+		System.out.println("[3] Search for an account");
+		System.out.println("[4] Login");
+		System.out.println("[5] Login as administator");
+		System.out.println("[6] Exit");
+		System.out.print("Choice: ");
 	}//end welcome()
 	public static void welcomeUser(Bank bank)
 	{
@@ -240,8 +311,19 @@ public class BankClient
 		System.out.println("[6] Change password");
 		System.out.println("[7] View transactions");
 		System.out.println("[8] Logout");
-		System.out.println();
+		System.out.print("Choice: ");
 	}//end welcomeUser()
+	public static void welcomeAdmin(Bank bank)
+	{
+		System.out.println("Welcome back, administrator of " + bank.getName() + ".");
+		System.out.println("Choose from one of your options to begin.");
+		System.out.println("[1] View all accounts");
+		System.out.println("[2] Delete an account");
+		System.out.println("[3] View recent transactions");
+		System.out.println("[4] Search for an account");
+		System.out.println("[5] Logout");
+		System.out.print("Choice: ");
+	}
 	public static boolean searchAccount(Bank bank, String accNum)
 	{
 		for(int i = 0; i < bank.accountAL().size(); i++)
@@ -265,6 +347,18 @@ public class BankClient
     	}//end for loop
 		return bank.accountAL().get(index);
 	}//end getAccount()
+	public static Bank getBank(ArrayList<Bank> arrayList, String name)
+	{
+		int index = -1;
+		for(int i = 0; i < arrayList.size(); i++)
+		{
+			if(arrayList.get(i).getName().equalsIgnoreCase(name)) 
+			{
+				index = i;
+			}
+		}
+		return arrayList.get(index);
+	}
 	public static boolean validatePassword(Bank bank, String accNum, String password)
 	{
 		if(searchAccount(bank, accNum) && (getAccount(bank, accNum).getPassword().equals(password)))
@@ -272,5 +366,22 @@ public class BankClient
 			return true;
 		}
 		return false;
+	}//end validatePassword()
+	public static boolean validateBank(ArrayList<Bank> arrayList, String bankName)
+	{
+		for(int i = 0; i < arrayList.size(); i++)
+		{
+			if(arrayList.get(i).getName().toLowerCase().equals(bankName)) return true;
+		}
+		return false;
 	}
+	public static void printBanks(ArrayList<Bank> arrayList)
+	{
+		String str = "";
+		for(int i = 0; i < arrayList.size(); i++)
+		{
+			str = str + arrayList.get(i).getName() + "\n";
+		}
+		System.out.println(str);
+	}//end printBanks()
 }//end class
