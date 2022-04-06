@@ -24,6 +24,14 @@ public class Bank
 		this.masterPin = masterPin;
 		this.accounts = accounts;
 	}//end Bank()
+	public Bank(String name, String address, String phoneNumber, String masterPin)
+	{
+		this.name = name;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.masterPin = masterPin;
+		accounts = new ArrayList<Accounts>();
+	}//end Bank()
 	public void addAccount(Accounts newAcc)
 	{
 		accounts.add(newAcc);
