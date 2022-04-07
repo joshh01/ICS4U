@@ -19,38 +19,36 @@ public class BankClient
 		banks.add(scotiabank);
 		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172", "marino");
 		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "647-965-0521", "xd");
-		td.addAccount(account);
-		td.addAccount(acc2);
-		//System.out.println(getAccount(td, "0000-0000-0000-0002"));
+		rbc.addAccount(account);
+		rbc.addAccount(acc2);
 		System.out.println("Welcome to the Federal Banking System. Please choose from one of our banks to begin.");
 		printBanks(banks);
 		name = scanner.nextLine();
+		System.out.println();
 		while(!validateBank(banks, name))
 		{
 			System.out.println("The bank you have entered [" + name + "] is invalid. Please try again.");
 			name = scanner.nextLine();
-		}
+		}//end while loop
 		Bank bank = getBank(banks, name);
 		do
 		{
 			welcome(bank);
             choice = Integer.parseInt(scanner.nextLine());
+            System.out.println();
             switch(choice)
             {
             case 1:
-            	System.out.println();
             	System.out.println("Choice: [1] Create a bank account.");
                 Accounts acc = createAccount();
                 bank.addAccount(acc);
                 System.out.println("An account has been opened under " + acc.getName() + ". Your account number is " + acc.getAccountNumber() + " Use [4] to review your information.\n");
                 break;
             case 2:
-            	System.out.println();
             	System.out.println("Choice: [2] View bank information.");
             	System.out.println(bank.bankInfo());
             	break;
             case 3:
-            	System.out.println();
             	System.out.println("Choice: [3] Search for an account");
             	//search here
             	System.out.println("What account [ID] would you like to view?");
@@ -63,20 +61,19 @@ public class BankClient
             		if(!bank.getMasterPin().equals(scanner.nextLine())) 
             		{
             			System.out.println("You have entered an incorrect pin. Please restart and try again.\n");
-            		}
+            		}//end if
             		else
             		{
             			System.out.println("Welcome administrator!");
                 		System.out.println(fetchedAcc);
-            		}
-            	}
+            		}//end else
+            	}//end if(acc)
             	else
             	{
             		System.out.println("The account number you have entered [" + accountNum + "] is invalid. Please restart and try again.\n");
-            	}
+            	}//end else
             	break;
             case 4:
-            	System.out.println();
             	System.out.println("Choice: [4] Login");
             	String userAccNum, userPass;
             	System.out.print("Please enter your account number: ");
@@ -89,15 +86,16 @@ public class BankClient
             		if(!validatePassword(bank, userAccNum, userPass)) 
             		{
             			System.out.println("You have entered an incorrect password. Please restart and try again.\n");
-            		}
+            		}//end if
             		else
             		{
             			Accounts userAcc = getAccount(bank, userAccNum);
             			do
             			{
-                			welcomeUser(bank);
+                			welcomeUser(bank, userAcc);
                 			System.out.print("Enter your choice: ");
                 			choice = Integer.parseInt(scanner.nextLine());
+                			System.out.println();
                 			switch(choice)
                 			{
                 			case 1:
@@ -113,7 +111,6 @@ public class BankClient
                 				userAcc.withdraw();
                 				break;
                 			case 4:
-                				System.out.println();
                 				System.out.println("Choice: [4] Transfer funds");
                 				transferFunds(bank, userAcc);
                 				break;
@@ -126,6 +123,7 @@ public class BankClient
                 				System.out.println("[4] Phone Number: " + userAcc.getPhoneNumber() + "\n\n");
                 				System.out.print("What field would you like to change? "); 
                 				choice = Integer.parseInt(scanner.nextLine());
+                				System.out.println();
                 				switch(choice)
                 				{
                 				case 1:
@@ -137,7 +135,7 @@ public class BankClient
                 				case 2:
                 					System.out.println("What should the new account type be?");
                 					accountType = scanner.nextLine();
-                					while (!accountType.equals("Chequing") && !accountType.equals("Savings") && !accountType.equals("MMA") && !accountType.equals("CD"))
+                					while (!accountType.equalsIgnoreCase("Chequing") && !accountType.equalsIgnoreCase("Savings") && !accountType.equalsIgnoreCase("MMA") && !accountType.equalsIgnoreCase("CD"))
                 					{
                 						System.out.print("The account type you have entered [" + accountType + "] is invalid. Please choose from the following: [Chequing, Savings, MMA, CD]. ");
                 						accountType = scanner.nextLine();
@@ -157,22 +155,17 @@ public class BankClient
                 					userAcc.setPhoneNumber(phoneNumber);
                 					System.out.println("Your phone number has successfully been updated to: " + phoneNumber + ".\n");
                 					break;
-                				case 6:
-                					//transfer funds, remove elements seen here from the 1st gui
-                					//transferFunds(bank, userAcc);
-                					break;
                 				default:
                 					System.out.println("You have entered an invalid choice. Please try again.\n");
-                				}
+                				}//end change account settings cases
                 				break;
                 			case 6:
-                				System.out.println();
                 				System.out.println("Choice: [6] Change password");
                 				userAcc.changePassword();
                 				break;
                 			case 7:
                 				System.out.println("Choice: [7] View transactions");
-                				System.out.println("Transactions:\n\n");
+                				System.out.println("Transactions:\n");
                         		System.out.println(userAcc.actionList());
                         		break;
                 			case 8:
@@ -180,24 +173,23 @@ public class BankClient
                 				break;
                 			default:
                 				System.out.println("You have entered an invalid choice. Please try again.\n");
-                			}
+                			}//end welcomeUser cases
             			} while(choice != 8);
-            		}
-            	}
+            		}//end else
+            	}//end if(acc) 
             	else
             	{
             		System.out.println("The account number you have entered [" + userAccNum + "] is invalid. Please restart and try again.\n");
-            	}
+            	}//end else
             	System.out.println();
             	break;
             case 5:
-            	System.out.println();
             	System.out.println("Choice: [5] Login as administrator");
             	System.out.println("Enter " + bank.getName() + "'s master pin.");
             	if(!scanner.nextLine().equals(bank.getMasterPin()))
             	{
             		System.out.println("You have entered an incorrect password. Please restart and try again.\n");
-            	}
+            	}//end if
             	else
             	{	
             		do
@@ -223,8 +215,8 @@ public class BankClient
             					{
             						bank.removeAccount(bank.accountAL().get(i));
             						System.out.println("The account " + accountNumber + " has been deleted.");
-            					}
-            				}
+            					}//end if
+            				}//end for
             				break;
             			case 3: 
             				System.out.println("Choice: [3] View recent transactions");
@@ -232,7 +224,7 @@ public class BankClient
             				for(int i = 0; i < bank.accountAL().size(); i++)
             				{
             					str = str + bank.accountAL().get(i).actionList();
-            				}
+            				}//end for
             				System.out.println(str);
             				break;
             			case 4:
@@ -242,29 +234,28 @@ public class BankClient
             				if(searchAccount(bank, accountNumber))
             				{
             					System.out.println(getAccount(bank, accountNumber));
-            				}
+            				}//end if
             				else
             				{
             					System.out.println("The account number you have entered [" + accountNumber + "] is invalid. Please restart and try again.\n");
-            				}
+            				}//end else
             				break;
             			case 5:
             				System.out.println("You have successfully been logged out.");
             				break;
             			default:
             				System.out.println("You have entered an invalid choice. Please try again.\n");
-            			}
+            			}//end admin cases
             		} while(choice != 5);
-            	}
+            	}//end else
             	break;
             case 6:
-            	System.out.println();
             	System.out.println("Thank you for using " + bank.getName() + " today!");
             	break;
             default:
             	System.out.println("You have entered an invalid choice. Please try again.\n");
-            }
-        }
+            }//end do...while welcome choice loop
+        }//end full replay loop
         while (choice != 6);
 	}//end main()
 	public static Accounts createAccount()
@@ -282,7 +273,7 @@ public class BankClient
 		{
 			System.out.print("The account type you have entered [" + accType + "] is invalid. Please choose from the following: [Chequing, Savings, MMA, CD]. ");
 			accType = scanner.nextLine();
-		}
+		}//end while
 		acc.setAccountType(accType);
 		System.out.print("For security purposes, what is your address? ");
 		acc.setAddress(scanner.nextLine());
@@ -305,9 +296,9 @@ public class BankClient
 		System.out.println("[6] Exit");
 		System.out.print("Choice: ");
 	}//end welcome()
-	public static void welcomeUser(Bank bank)
+	public static void welcomeUser(Bank bank, Accounts acc)
 	{
-		System.out.println("Welcome back to " + bank.getName() + "!");
+		System.out.println("Welcome back to " + bank.getName() + ", " + acc.getName() + "!");
 		System.out.println("Please choose from one of our options to get started!");
 		System.out.println("[1] View account information");
 		System.out.println("[2] Make a deposit");
@@ -329,7 +320,7 @@ public class BankClient
 		System.out.println("[4] Search for an account");
 		System.out.println("[5] Logout");
 		System.out.print("Choice: ");
-	}
+	}//end welcomeAdmin()
 	public static boolean searchAccount(Bank bank, String accNum)
 	{
 		for(int i = 0; i < bank.accountAL().size(); i++)
@@ -362,16 +353,16 @@ public class BankClient
 			if(arrayList.get(i).getName().equalsIgnoreCase(name)) 
 			{
 				index = i;
-			}
-		}
+			}//end if
+		}//end for
 		return arrayList.get(index);
-	}
+	}//end getBank()
 	public static boolean validatePassword(Bank bank, String accNum, String password)
 	{
 		if(searchAccount(bank, accNum) && (getAccount(bank, accNum).getPassword().equals(password)))
 		{
 			return true;
-		}
+		}//end if
 		return false;
 	}//end validatePassword()
 	public static boolean validateBank(ArrayList<Bank> arrayList, String bankName)
@@ -379,16 +370,16 @@ public class BankClient
 		for(int i = 0; i < arrayList.size(); i++)
 		{
 			if(arrayList.get(i).getName().toLowerCase().equals(bankName)) return true;
-		}
+		}//end for
 		return false;
-	}
+	}//end validateBank()
 	public static void printBanks(ArrayList<Bank> arrayList)
 	{
 		String str = "";
 		for(int i = 0; i < arrayList.size(); i++)
 		{
 			str = str + arrayList.get(i).getName() + "\n";
-		}
+		}//end for
 		System.out.println(str);
 	}//end printBanks()
 	public static void transferFunds(Bank bank, Accounts accSending)
@@ -404,10 +395,10 @@ public class BankClient
 			Accounts accReceiving = getAccount(bank, accountNumber);
 			System.out.print("How much would you like to send to " + accReceiving.getName() + "? ");
 			amount = Double.parseDouble(scanner.nextLine());
-			if(amount > accReceiving.getBalance()) 
+			if(amount > accSending.getBalance()) 
 			{
 				System.out.println("You do not have this much money in your account. Retry with a lower amount.\n");
-			}
+			}//end inner if
 			else
 			{
 				System.out.println();
@@ -416,11 +407,11 @@ public class BankClient
 				System.out.println("$" + amount + " has successfully been sent to: " + accReceiving.getName() + ".\n");
 				accSending.addTransaction(time + " | " + accSending.getAccountNumber() + " | NEW TRANSFER: (-) $" + amount + ". BALANCE [" + (accSending.getBalance() + amount) + "] --> [" + (accSending.getBalance()) + "]");
 				accReceiving.addTransaction(time + " | " + accountNumber + " | NEW TRANSFER: (+) $" + amount + ". BALANCE [" + (accReceiving.getBalance() - amount) + "] --> [" + (accReceiving.getBalance()) + "]");
-			}
-		}
+			}//end else
+		}//end outer if
 		else
 		{
 			System.out.println("The account number you have entered [" + accountNumber + "] is invalid. Please restart and try again.\n");
-		}
-	}
+		}//end else
+	}//end transferFunds()
 }//end class
