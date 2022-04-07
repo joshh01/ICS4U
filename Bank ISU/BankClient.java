@@ -1,5 +1,7 @@
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 public class BankClient 
 {
 	public static Scanner scanner = new Scanner(System.in);
@@ -17,8 +19,9 @@ public class BankClient
 		banks.add(scotiabank);
 		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172", "marino");
 		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "647-965-0521", "xd");
-		//bank.addAccount(account);
-		//bank.addAccount(acc2);
+		td.addAccount(account);
+		td.addAccount(acc2);
+		//System.out.println(getAccount(td, "0000-0000-0000-0002"));
 		System.out.println("Welcome to the Federal Banking System. Please choose from one of our banks to begin.");
 		printBanks(banks);
 		name = scanner.nextLine();
@@ -27,7 +30,6 @@ public class BankClient
 			System.out.println("The bank you have entered [" + name + "] is invalid. Please try again.");
 			name = scanner.nextLine();
 		}
-		//System.out.println(getBank(banks, name));
 		Bank bank = getBank(banks, name);
 		do
 		{
@@ -40,7 +42,7 @@ public class BankClient
             	System.out.println("Choice: [1] Create a bank account.");
                 Accounts acc = createAccount();
                 bank.addAccount(acc);
-                System.out.println("An account has been opened under " + acc.getName() + ". Your account number is " + acc.getAccountNumber() + " Use [6] to review your information.\n");
+                System.out.println("An account has been opened under " + acc.getName() + ". Your account number is " + acc.getAccountNumber() + " Use [4] to review your information.\n");
                 break;
             case 2:
             	System.out.println();
@@ -49,7 +51,7 @@ public class BankClient
             	break;
             case 3:
             	System.out.println();
-            	System.out.println("Choice: [4] Search for an account");
+            	System.out.println("Choice: [3] Search for an account");
             	//search here
             	System.out.println("What account [ID] would you like to view?");
             	String accountNum = scanner.nextLine();
@@ -75,7 +77,7 @@ public class BankClient
             	break;
             case 4:
             	System.out.println();
-            	System.out.println("Choice: [5] Login");
+            	System.out.println("Choice: [4] Login");
             	String userAccNum, userPass;
             	System.out.print("Please enter your account number: ");
             	userAccNum = scanner.nextLine();
@@ -111,7 +113,9 @@ public class BankClient
                 				userAcc.withdraw();
                 				break;
                 			case 4:
-                				//transfer funds
+                				System.out.println();
+                				System.out.println("Choice: [4] Transfer funds");
+                				transferFunds(bank, userAcc);
                 				break;
                 			case 5:
                 				//edit account info
@@ -155,12 +159,14 @@ public class BankClient
                 					break;
                 				case 6:
                 					//transfer funds, remove elements seen here from the 1st gui
+                					//transferFunds(bank, userAcc);
                 					break;
                 				default:
                 					System.out.println("You have entered an invalid choice. Please try again.\n");
                 				}
                 				break;
                 			case 6:
+                				System.out.println();
                 				System.out.println("Choice: [6] Change password");
                 				userAcc.changePassword();
                 				break;
@@ -185,8 +191,8 @@ public class BankClient
             	System.out.println();
             	break;
             case 5:
-            	System.out.println("Choice: [6] Login as administrator");
-            	//login as admin
+            	System.out.println();
+            	System.out.println("Choice: [5] Login as administrator");
             	System.out.println("Enter " + bank.getName() + "'s master pin.");
             	if(!scanner.nextLine().equals(bank.getMasterPin()))
             	{
@@ -272,12 +278,12 @@ public class BankClient
 		acc.setAccountNumber(accNo);
 		System.out.print("What type of account would you like to open? [Chequing, Savings, MMA, CD] ");
 		accType = scanner.nextLine();
-		while (!accType.equals("Chequing") && !accType.equals("Savings") && !accType.equals("MMA") && !accType.equals("CD"))
+		while (!accType.equalsIgnoreCase("Chequing") && !accType.equalsIgnoreCase("Savings") && !accType.equalsIgnoreCase("MMA") && !accType.equalsIgnoreCase("CD"))
 		{
 			System.out.print("The account type you have entered [" + accType + "] is invalid. Please choose from the following: [Chequing, Savings, MMA, CD]. ");
 			accType = scanner.nextLine();
 		}
-		acc.setAccountType(scanner.nextLine());
+		acc.setAccountType(accType);
 		System.out.print("For security purposes, what is your address? ");
 		acc.setAddress(scanner.nextLine());
 		System.out.print("For contact purposes, what is your phone number? ");
@@ -340,8 +346,9 @@ public class BankClient
 		int index = -1;
 		for(int i = 0; i < bank.accountAL().size(); i++)
     	{
-    		if(bank.accountAL().get(i).getAccountNumber().contentEquals(accNum)) 
+    		if(bank.accountAL().get(i).getAccountNumber().equals(accNum)) 
     		{
+    			//System.out.println(bank.accountAL().get(i).getAccountNumber());
     			index = i;
     		}//end if loop
     	}//end for loop
@@ -384,4 +391,36 @@ public class BankClient
 		}
 		System.out.println(str);
 	}//end printBanks()
+	public static void transferFunds(Bank bank, Accounts accSending)
+	{
+		double amount;
+		String accountNumber = "";
+		SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+        String time = date.format(new Date());
+		System.out.print("What account [ID] would you like to send money to? ");
+		accountNumber = scanner.nextLine();
+		if(searchAccount(bank, accountNumber))
+		{
+			Accounts accReceiving = getAccount(bank, accountNumber);
+			System.out.print("How much would you like to send to " + accReceiving.getName() + "? ");
+			amount = Double.parseDouble(scanner.nextLine());
+			if(amount > accReceiving.getBalance()) 
+			{
+				System.out.println("You do not have this much money in your account. Retry with a lower amount.\n");
+			}
+			else
+			{
+				System.out.println();
+				accSending.setBalance(accSending.getBalance() - amount);
+				accReceiving.setBalance(accReceiving.getBalance() + amount);
+				System.out.println("$" + amount + " has successfully been sent to: " + accReceiving.getName() + ".\n");
+				accSending.addTransaction(time + " | " + accSending.getAccountNumber() + " | NEW TRANSFER: (-) $" + amount + ". BALANCE [" + (accSending.getBalance() + amount) + "] --> [" + (accSending.getBalance()) + "]");
+				accReceiving.addTransaction(time + " | " + accountNumber + " | NEW TRANSFER: (+) $" + amount + ". BALANCE [" + (accReceiving.getBalance() - amount) + "] --> [" + (accReceiving.getBalance()) + "]");
+			}
+		}
+		else
+		{
+			System.out.println("The account number you have entered [" + accountNumber + "] is invalid. Please restart and try again.\n");
+		}
+	}
 }//end class
