@@ -16,7 +16,7 @@ public class Accounts
 	//Default Constructor
 	public Accounts()
 	{
-		accountNumber = "0000-0000-0000-0000";
+		accountNumber = ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000));
 		accountType = "Savings";
 		name = "-";
 		address = "-";
@@ -113,17 +113,17 @@ public class Accounts
 			{
 				password = newPass;
 				System.out.println("Your password has been updated.\n");
-			}
+			}//end if
 			else
 			{
 				System.out.println("The passwords do not match. Ending process.\n");
-			}
-		}
+			}//end else
+		}//end if
 		else
 		{
 			System.out.println("The password you have entered is incorrect. Please restart and try again.\n");
-		}
-	}
+		}//end else
+	}//end changePassword()
 	public String actionList()
 	{
 		String str = "";
@@ -133,8 +133,8 @@ public class Accounts
 		}//end for loop
 		if(str.contentEquals(""))
 		{
-			return "There have been no transactions.\n";
-		}
+			return "There have been no transactions from " + accountNumber + ".";
+		}//end if
 		return str;
 	}//end actionList()
 	public void deposit()
@@ -159,7 +159,7 @@ public class Accounts
 		{
 			System.out.println("The amount you have entered [$" + amount + "] is larger than your balance [$" + balance + "]. Please try again with an amount equal to or lower than your balance.\n");
 			return;
-		}
+		}//end if
 		balance -= amount;
 		transactions.add(time + " | " + accountNumber + " | NEW WITHDRAWAL: $" + amount + ". BALANCE [" + (balance) + "] --> [" + (balance - amount) + "]");
 		System.out.println("You have successfully withdrawn $" + amount + " from your account. Your new balance is $" + balance + ".\n");
@@ -172,5 +172,5 @@ public class Accounts
 				"Address: " + address + "\n" +
 				"Phone Number: " + phoneNumber + "\n" +
 				"Balance: $" + balance + "\n";
-	}
+	}//end toString()
 }//end class
