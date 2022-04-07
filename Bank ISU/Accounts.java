@@ -67,6 +67,10 @@ public class Accounts
 		return transactions;
 	}//end getTransactions()
 	//Set Methods
+	public void addTransaction(String str)
+	{
+		transactions.add(str);
+	}
 	public void setBalance(double bal)
 	{
 		balance = bal;
@@ -109,6 +113,10 @@ public class Accounts
 			{
 				password = newPass;
 				System.out.println("Your password has been updated.\n");
+			}
+			else
+			{
+				System.out.println("The passwords do not match. Ending process.\n");
 			}
 		}
 		else
@@ -155,7 +163,6 @@ public class Accounts
 		balance -= amount;
 		transactions.add(time + " | " + accountNumber + " | NEW WITHDRAWAL: $" + amount + ". BALANCE [" + (balance) + "] --> [" + (balance - amount) + "]");
 		System.out.println("You have successfully withdrawn $" + amount + " from your account. Your new balance is $" + balance + ".\n");
-		//System.out.println("100s: " + amount % 100 + "\n50s: " + (amount % 100) % 50 + "\n20s: " + ((amount % 100) % 50) % 20 + "\n10s: " + (((amount % 100) % 50) % 20) % 10 + "\n5s: " + ((((amount % 100) % 50) % 20) % 10) % 5);
 	}//end withdraw()
 	public String toString()
 	{
