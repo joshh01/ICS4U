@@ -40,7 +40,7 @@ public class Testing
 		*/
 		
 		int iKey;
-		String searchSort, searchRoutine, sKey, typeSearch;
+		String searchSort, searchRoutine, sKey, typeSearch, sortRoutine, choice;
 		Scanner scanner = new Scanner(System.in);
 		int[] arr = { 15, 12, 22, 24, 30, 34, 65, 67, 77, 98, 0, 27, 13, 6, 2, 88 };
 		String[] array = { "Hello", "There", "Person", "Plane", "Ready", "Great" };
@@ -58,7 +58,7 @@ public class Testing
 			//Cases for search routine
 			switch(searchRoutine)
 			{
-			case "linear":
+			case "linear": case "1":
 				System.out.println("Would you like to search for a number or a word?");
 				typeSearch = scanner.nextLine().toLowerCase();
 				//Cases for the type of search (word / number)
@@ -78,7 +78,7 @@ public class Testing
 					System.out.println("The choice you have entered [" + typeSearch + "] is invalid.");
 				}
 				break;
-			case "recursive":
+			case "recursive": case "2":
 				System.out.println("Would you like to search for a number or a word?");
 				typeSearch = scanner.nextLine().toLowerCase();
 				switch(typeSearch)
@@ -91,26 +91,89 @@ public class Testing
 				case "word":
 					System.out.println("Please enter a word to search for.");
 					sKey = scanner.nextLine();
-					System.out.println(recursiveSearchString(array, sKey, 0, arr.length - 1) == -1 ? "Key not found" : "Key found at: " + (recursiveSearchString(array, sKey, 0, array.length - 1) + 1));
+					System.out.println(recursiveSearchString(array, sKey, 0, array.length - 1) == -1 ? "Key not found" : "Key found at: " + (recursiveSearchString(array, sKey, 0, array.length - 1) + 1));
 					break;
 				default:
 					System.out.println("The choice you have entered [" + typeSearch + "] is invalid.");
 				}
 				break;
-			case "binary":
+			case "binary": case "3":
+				System.out.println("Would you like to search for a number or a word?");
+				typeSearch = scanner.nextLine().toLowerCase();
+				switch(typeSearch)
+				{
+				case "number":
+					System.out.println("Please enter a number to search for.");
+					iKey = Integer.parseInt(scanner.nextLine());
+					System.out.println(binarySearch(arr, iKey) == -1 ? "Key not found" : "Key found at: " + (binarySearch(arr, iKey) + 1));
+					break;
+				case "word":
+					
+					System.out.println("Please enter a word to search for.");
+					sKey = scanner.nextLine();
+					System.out.println(binarySearchString(array, sKey) == -1 ? "Key not found" : "Key found at: " + (binarySearchString(array, sKey) + 1));
+					
+					break;
+				default:
+					System.out.println("The choice you have entered [" + typeSearch + "] is invalid.");
+				}
 				break;
 			default:
 				System.out.println("The choice you have entered [" + searchRoutine + "] is invalid.");
 			}
 			break;
 		case "sort":
+			System.out.println("Which sorting algorithm would you like to use?");
+			System.out.println("[1] Selection");
+			System.out.println("[2] Bubble");
+			System.out.println("[3] Insertion");
+			System.out.println("[4] Quick");
+			System.out.println("[5] Merge");
+			sortRoutine = scanner.nextLine().toLowerCase();
+			switch(sortRoutine)
+			{
+			case "selection": case "1":
+				System.out.println("\nWhich version of Selection Sort would you like to use?");
+				System.out.println("[-] Ascending");
+				System.out.println("[-] Descending");
+				choice = scanner.nextLine().toLowerCase();
+				switch(choice)
+				{
+				case "ascending":
+					System.out.println("Unsorted Array:");
+					printArr(arr);
+					System.out.println("\nSorted Array:");
+					selectionSortAscending(arr);
+					printArr(arr);
+					break;
+				case "descending":
+					System.out.println("Unsorted Array:");
+					printArr(arr);
+					System.out.println("\nSorted Array:");
+					selectionSortDescending(arr);
+					printArr(arr);
+					break;
+				default:
+					System.out.println("The choice you have entered [" + choice + "] is invalid.");
+				}
+			case "bubble": case "2":
+				break;
+			case "insertion": case "3":
+				break;
+			case "quick": case "4":
+				break;
+			case "merge": case "5":
+				break;
+			default: 
+				System.out.println("The choice you have entered [" + sortRoutine + "] is invalid.");
+			}
 			break;
 		default:
 			System.out.println("The choice you have entered [" + searchSort + "] is invalid.");
 		}
+		scanner.close();
 	}
 	//Selection Sort
-	
 	public static void selectionSortDescending(int[] array)
 	{
 		int num = array.length;
@@ -128,6 +191,12 @@ public class Testing
 			}
 			num--;
 		}
+	}
+	public static void selectionSortAscending(int[] array)
+	{
+		int num = array.length;
+		int minPos;
+		abc;
 	}
 	public static void swap(int[] array, int idx1, int idx2) 
 	{
@@ -194,6 +263,27 @@ public class Testing
 		}
 		return -1;
 	}
+	public static int binarySearchString(String[] array, String key)
+	{
+		int start = 0, end = array.length - 1, mid = -1;
+		while(start <= end)
+		{
+			mid = (start + end) / 2;
+			if(key.equals(array[mid]))
+			{
+				return mid;
+			}
+			if((int)key.charAt(0) < (int)array[mid].charAt(0))
+			{
+				end = mid - 1;
+			}
+			else if((int)key.charAt(0) > (int)array[mid].charAt(0))
+			{
+				start = mid + 1;
+			}
+		}
+		return -1;
+	}//end binarySearchString()
 	//Recursive Search
 	public static int recursiveSearch(int[] array, int key, int start, int end)
 	{
@@ -235,7 +325,7 @@ public class Testing
 		}
 		else
 		{
-			end = mid + 1;
+			end = mid - 1;
 			return recursiveSearchString(array, key, start, end);
 		}
 	}
