@@ -17,7 +17,7 @@ public class Accounts
 	public Accounts()
 	{
 		accountNumber = ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000)) + "-" + ((int)Math.floor(Math.random() * 9000 + 1000));
-		accountType = "Savings";
+		accountType = "-";
 		name = "-";
 		address = "-";
 		phoneNumber = "-";
@@ -133,7 +133,7 @@ public class Accounts
 		}//end for loop
 		if(str.contentEquals(""))
 		{
-			return "There have been no transactions from " + accountNumber + ".";
+			return "There have been no transactions from " + accountNumber + ".\n";
 		}//end if
 		return str;
 	}//end actionList()
