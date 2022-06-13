@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class SearchingSorting
 {
 	public static void main(String[] args) 
@@ -6,8 +7,16 @@ public class SearchingSorting
 		int iKey;
 		String searchSort, searchRoutine, sKey, typeSearch, sortRoutine, choice;
 		Scanner scanner = new Scanner(System.in);
-		int[] arr = { 15, 12, 22, 24, 30, 34, 65, 67, 77, 98, 0, 27, 13, 6, 2, 88 };
-		String[] array = { "Hello", "There", "Person", "Plane", "Ready", "Great" };
+		//int[] arr = { 15, 12, 22, 24, 30, 34, 65, 67, 77, 98, 0, 27, 13, 6, 2, 88 };
+		//String[] array = { "Hello", "There", "Person", "Plane", "Ready", "Great" };
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		ArrayList<String> array = new ArrayList<String>();
+		System.out.println("Please insert values into the Integer ArrayList.");
+		for 
+		{
+			
+		}
+		System.out.println("Please insert values into the String ArrayList. (exit to quit)");
 		System.out.println("Integer Array:");
 		printArr(arr);
 		System.out.println("\nString Array:");
