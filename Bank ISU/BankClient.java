@@ -20,9 +20,18 @@ public class BankClient
 		Accounts account = new Accounts(83829, "0000-0000-0000-0001", "Savings", "Joshua de Souza", "76 Islington Avenue", "647-995-0172", "marino");
 		Accounts acc2 = new Accounts(2000, "0000-0000-0000-0002", "Chequing", "Marino Marchesan", "123 Queens St", "647-965-0521", "xd");
 		Accounts acc3 = new Accounts();
+		Accounts acc4 = new Accounts();
+		acc4.setName("Jason");
+		Accounts acc5 = new Accounts();
+		acc5.setName("Kardin");
+		acc5.setAddress("74 Contdressor Drive");
+		Accounts acc6 = new Accounts(0, "0000-0000-0000-0003", "MMA", "Brandon Lau", "92 Kyle Lowry Way", "416-903-4627", "blau");
 		rbc.addAccount(account);
 		rbc.addAccount(acc2);
 		scotiabank.addAccount(acc3);
+		scotiabank.addAccount(acc4);
+		td.addAccount(acc5);
+		td.addAccount(acc6);
 		System.out.println("Welcome to the Federal Banking System. Please choose from one of our banks to begin.");
 		printBanks(banks);
 		name = scanner.nextLine();
