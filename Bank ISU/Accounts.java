@@ -1,3 +1,7 @@
+/*
+ * Account class for BankClient
+ * Holds information for accounts
+ */
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
