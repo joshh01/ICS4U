@@ -3,6 +3,7 @@
  * March 30, 2022
  * Bank ISU - Using Classes, Objects & ArrayLists
  * Program replicates the functions of a bank, including user and administrator functions.
+ * Subclasses: Bank, Accounts
  */
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
